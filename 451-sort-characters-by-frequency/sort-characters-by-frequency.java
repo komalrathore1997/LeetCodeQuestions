@@ -6,15 +6,17 @@ class Solution {
             map.put(c,map.getOrDefault(c,0)+1);
         }
 
-        List<Map.Entry<Character, Integer>> sortedEntries = new ArrayList<>(map.entrySet());
-        sortedEntries.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+        PriorityQueue<Map.Entry<Character,Integer>> queue=new PriorityQueue<>(
+            (a,b) -> b.getValue() - a.getValue()
+        );
 
+        queue.addAll(map.entrySet());
         StringBuilder sb = new StringBuilder();
-        for (Map.Entry<Character, Integer> entry : sortedEntries) {
-            for (int i = 0; i < entry.getValue(); i++) {
-                sb.append(entry.getKey());
-            }
+        while(!queue.isEmpty()){
+           Map.Entry<Character,Integer> entry=queue.poll();
+           sb.append(String.valueOf(entry.getKey()).repeat(entry.getValue()));
         }
+        
 
         return sb.toString();
 
