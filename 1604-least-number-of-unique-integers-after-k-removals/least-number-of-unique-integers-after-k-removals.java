@@ -1,6 +1,3 @@
-import java.util.Map;
-import java.util.Map.Entry;
-
 class Solution {
     public int findLeastNumOfUniqueInts(int[] arr, int k) {
        Map<Integer, Integer> map = new HashMap<>();
@@ -9,27 +6,19 @@ class Solution {
 		}
 		
 		List<Map.Entry<Integer, Integer>> entryList = new ArrayList<>(map.entrySet());
-		Collections.sort(entryList,new Comparator<Map.Entry<Integer,Integer>>() {
-
-			@Override
-			public int compare(Entry<Integer, Integer> o1, Entry<Integer, Integer> o2) {
-				return o1.getValue()-o2.getValue();
-			}
-		});
 		
+        entryList.sort((a,b)-> a.getValue()-b.getValue());
 
-		Iterator<Map.Entry<Integer, Integer>> iterator = entryList.iterator();
-		while (iterator.hasNext() && k >= 0) {
-			Map.Entry<Integer, Integer> entry = iterator.next();
+        for(Map.Entry<Integer,Integer> entry:entryList){
 			int val = entry.getValue();
 			if (val <= k) {
 				k -= val;
-				iterator.remove();
+				map.remove(entry.getKey());
 			} else {
 				break;
 			}
 		}
 
-		return entryList.size();
+		return map.size();
     }
 }
