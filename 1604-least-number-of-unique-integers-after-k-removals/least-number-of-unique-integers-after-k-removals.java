@@ -13,7 +13,7 @@ class Solution {
 
 			@Override
 			public int compare(Entry<Integer, Integer> o1, Entry<Integer, Integer> o2) {
-				return o1.getValue().compareTo(o2.getValue());
+				return o1.getValue()-o2.getValue();
 			}
 		});
 		
